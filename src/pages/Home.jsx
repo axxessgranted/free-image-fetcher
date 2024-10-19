@@ -49,7 +49,6 @@ const Home = () => {
       <NavBar />
       <div className="surpriseBox">
         <label>Download a pexels image!</label>
-        <label>Bring your imaginations into reality!</label>
       </div>
       <div>
         <input
