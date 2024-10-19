@@ -13,3 +13,7 @@ export const promptIdeas = [
   "Underwater Paradise",
   "Cosmic Dreams",
 ];
+
+export const loaderMessages = [
+  "You can make up to 200 requests per hour using the Pexels API.",
+];
