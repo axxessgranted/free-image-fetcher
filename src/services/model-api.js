@@ -1,42 +1,25 @@
 import axios from "axios";
-import { secret } from "../secret";
-
-const { apiKey } = secret;
 
 export const fetchImages = async (
-  promptCall,
-  seedValue,
-  dropDownValue,
-  radioValue
+  prompt
 ) => {
-  const options = {
-    method: "POST",
-    url: "https://api.segmind.com/v1/sdxl1.0-txt2img",
+  const config = {
     headers: {
-      "x-api-key": `${apiKey}`,
+      "Authorization": `${process.env.REACT_APP_KEY}`,
       "Content-Type": "application/json",
     },
-    responseType: "arraybuffer",
-    data: {
-      prompt: promptCall,
-      seed: seedValue,
-      scheduler: dropDownValue,
-      num_inference_steps: radioValue,
-      negative_prompt: "NONE",
-      samples: "1",
-      guidance_scale: "7.5",
-      strength: "1",
-      shape: 512,
-    },
+    params: {
+      query: prompt
+    }
   };
 
   try {
-    const response = await axios.request(options);
-    // convert raw blob as ArrayBuffer to an image blob with MIME type
-    const imageBlob = new Blob([response.data], { type: "image/jpeg" });
-    // console.log(response, imageBlob);
-    return imageBlob;
+    const response = await axios.get("https://api.pexels.com/v1/search", config);
+
+    console.log(response);
+    const originalImageUrl = response.data.photos[0].src.original
+    return originalImageUrl;
   } catch (error) {
-    console.error("Error while fecthing Gen AI model API", error);
+    console.error("Error while fetching img", error);
   }
 };
